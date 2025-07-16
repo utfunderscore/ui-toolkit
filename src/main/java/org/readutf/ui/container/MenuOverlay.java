@@ -3,21 +3,22 @@ package org.readutf.ui.container;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
-import org.jetbrains.annotations.ApiStatus;
 import org.readutf.ui.Constants;
-import org.readutf.ui.Testing;
+import org.readutf.ui.Module;
+import org.readutf.ui.utils.FontUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import team.unnamed.creative.ResourcePack;
 import team.unnamed.creative.base.Writable;
 import team.unnamed.creative.font.FontProvider;
 import team.unnamed.creative.texture.Texture;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
 import static net.kyori.adventure.text.Component.text;
 import static net.kyori.adventure.text.Component.translatable;
 
-public class MenuOverlay {
+public class MenuOverlay implements Module {
 
-    private static final AtomicInteger sNextId = new AtomicInteger(1);
+    private static final Logger log = LoggerFactory.getLogger(MenuOverlay.class);
 
     private final Texture texture;
     private final int yOffset;
@@ -28,7 +29,7 @@ public class MenuOverlay {
         this.texture = texture;
         this.yOffset = yOffset;
         this.xOffset = xOffset;
-        this.imageChar = (char) ('\uF001' + sNextId.getAndIncrement());
+        this.imageChar = (char) ('\uF001' + Constants.characterCounter.getAndIncrement());
     }
 
     public FontProvider generate() {
@@ -38,6 +39,12 @@ public class MenuOverlay {
                 .ascent(yOffset)
                 .characters(String.valueOf(imageChar))
                 .build();
+    }
+
+    @Override
+    public void apply(ResourcePack resourcePack) {
+        FontUtils.appendFont(resourcePack, generate());
+        resourcePack.texture(texture);
     }
 
     public Component getTitle() {
@@ -62,10 +69,5 @@ public class MenuOverlay {
 
     public static MenuOverlay crafting(Texture texture) {
         return new MenuOverlay(texture, 39, -69);
-    }
-
-    @ApiStatus.Internal
-    public Texture getTexture() {
-        return texture;
     }
 }

@@ -11,21 +11,22 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class UIToolkit {
 
-    private @NotNull static MinecraftResourcePackReader reader =
+    private final @NotNull static MinecraftResourcePackReader reader =
             MinecraftResourcePackReader.builder().lenient(true).build();
 
-    private final List<MenuOverlay> menus;
+    private final List<Module> modules;
 
     public UIToolkit() {
-        this.menus = new ArrayList<>();
+        this.modules = new ArrayList<>();
     }
 
-    public UIToolkit menu(MenuOverlay menu) {
-        menus.add(menu);
+    public UIToolkit add(Module... module) {
+        modules.addAll(Arrays.asList(module));
         return this;
     }
 
@@ -37,13 +38,9 @@ public class UIToolkit {
             negativeSpaceFontPack = reader.readFromInputStream(in);
         }
 
-        Font defaultFont = negativeSpaceFontPack.font(Font.MINECRAFT_DEFAULT);
-        List<FontProvider> providers = new ArrayList<>(defaultFont.providers());
-        for (MenuOverlay menu : menus) {
-            providers.add(menu.generate());
-            negativeSpaceFontPack.texture(menu.getTexture());
+        for (Module module : modules) {
+            module.apply(negativeSpaceFontPack);
         }
-        negativeSpaceFontPack.font(Font.font(Font.MINECRAFT_DEFAULT, providers));
 
         return negativeSpaceFontPack;
     }
