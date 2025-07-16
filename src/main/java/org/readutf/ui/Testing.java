@@ -1,7 +1,10 @@
 package org.readutf.ui;
 
+import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.resource.ResourcePackInfo;
 import net.kyori.adventure.resource.ResourcePackRequest;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TextComponent;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.component.DataComponents;
 import net.minestom.server.coordinate.Pos;
@@ -17,6 +20,9 @@ import net.minestom.server.item.Material;
 import net.minestom.server.item.component.TooltipDisplay;
 import org.jetbrains.annotations.NotNull;
 import org.readutf.ui.container.MenuOverlay;
+import org.readutf.ui.hud.HudOverlay;
+import org.readutf.ui.utils.TextHelper;
+import org.readutf.ui.utils.TextureUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import team.unnamed.creative.BuiltResourcePack;
@@ -40,16 +46,30 @@ public class Testing {
             Writable.resource(Testing.class.getClassLoader(), "custom-ui.png")
     );
 
+    private static final HudOverlay hudOverlay1 = HudOverlay.top(
+            Component.text("This is quite a long title"),
+            Writable.resource(Testing.class.getClassLoader(), "test-bar.png")
+    );
+
+    private static final HudOverlay hudOverlay2 = HudOverlay.top(
+            Component.text("Short one"),
+            Writable.resource(Testing.class.getClassLoader(), "test-bar.png")
+    );
+
     public static void main(String[] args) throws IOException {
 
         ResourcePack resourcePack = new UIToolkit()
-                .menu(customUIOverlay)
+                .add(customUIOverlay, hudOverlay1, hudOverlay2, TextureUtils.hideBossBar(BossBar.Color.WHITE))
                 .build();
 
         BuiltResourcePack builtPack = MinecraftResourcePackWriter.minecraft().build(resourcePack);
 
         PackInfo result = startPackServer(builtPack);
         startServer(result.url(), result.hash());
+
+        TextComponent test = text("hello").append(text("world").append(text("hello")));
+
+        System.out.println(TextHelper.getComponentWidth(test, true, false));
     }
 
     private static @NotNull PackInfo startPackServer(BuiltResourcePack builtPack) throws IOException {
@@ -65,8 +85,7 @@ public class Testing {
         String url = "http://127.0.0.1:7279/" + path;
 
         log.info(url);
-        PackInfo result = new PackInfo(hash, url);
-        return result;
+        return new PackInfo(hash, url);
     }
 
     private record PackInfo(String hash, String url) {
@@ -97,6 +116,8 @@ public class Testing {
                             .with(DataComponents.TOOLTIP_DISPLAY, new TooltipDisplay(true, Set.of())));
 
 
+            player.showBossBar(BossBar.bossBar(hudOverlay1.getTitle(), 0.5f, BossBar.Color.WHITE, BossBar.Overlay.PROGRESS));
+            player.showBossBar(BossBar.bossBar(hudOverlay2.getTitle(), 0.5f, BossBar.Color.WHITE, BossBar.Overlay.PROGRESS));
 
             player.openInventory(inventory);
 
