@@ -6,4 +6,9 @@ public class Constants {
 
     public static AtomicInteger fileNameCounter = new AtomicInteger(0);
     public static AtomicInteger characterCounter = new AtomicInteger(0);
+
+    public static char getNextCharacter() {
+        return (char) ('\uF001' + Constants.characterCounter.getAndIncrement());
+    }
+
 }

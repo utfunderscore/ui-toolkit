@@ -33,3 +33,19 @@ UIToolkit toolkit = ...;
 toolkit.add(TextureUtils.hideBossBar(BossBar.Color.WHITE));
 ```
 
+### HUD Elements
+
+Hud elements work by using custom characters in the bossbar, 
+and negative space fonts shifting the text into the correct positions
+
+#### Option 1 - Fixed background
+This option uses a single fixed background image for the HUD background.
+```java
+private static final HudOverlay hudOverlay1 = HudOverlay.top(
+        Component.text("This is quite a long title"),
+        Writable.resource(Testing.class.getClassLoader(), "hud/top-background.png")
+);
+```
+
+#### Option 2 - Dynamic background
+This option uses a ending image and a 

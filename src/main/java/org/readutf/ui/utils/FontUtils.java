@@ -8,20 +8,21 @@ import team.unnamed.creative.font.Font;
 import team.unnamed.creative.font.FontProvider;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class FontUtils {
 
     private static final Logger log = LoggerFactory.getLogger(FontUtils.class);
 
-    public static void appendFont(@NotNull ResourcePack resourcePack, @NotNull FontProvider fontProvider) {
+    public static void appendFont(@NotNull ResourcePack resourcePack, @NotNull FontProvider... fontProvider) {
         Font defaultFont = resourcePack.font(Font.MINECRAFT_DEFAULT);
         if(defaultFont == null) {
             log.warn("Could not find the default minecraft font? This should not happen");
             return;
         }
         List<FontProvider> providers = new ArrayList<>(defaultFont.providers());
-        providers.add(fontProvider);
+        providers.addAll(Arrays.asList(fontProvider));
         resourcePack.font(Font.font(Font.MINECRAFT_DEFAULT, providers));
     }
 

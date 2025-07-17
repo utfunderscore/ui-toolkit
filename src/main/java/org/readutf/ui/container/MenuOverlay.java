@@ -29,7 +29,7 @@ public class MenuOverlay implements Module {
         this.texture = texture;
         this.yOffset = yOffset;
         this.xOffset = xOffset;
-        this.imageChar = (char) ('\uF001' + Constants.characterCounter.getAndIncrement());
+        this.imageChar = Constants.getNextCharacter();
     }
 
     public FontProvider generate() {

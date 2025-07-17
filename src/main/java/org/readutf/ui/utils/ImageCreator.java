@@ -106,7 +106,7 @@ public class ImageCreator {
      * @param image The image to flip
      * @return A new BufferedImage that is horizontally flipped
      */
-    private static BufferedImage flipHorizontally(BufferedImage image) {
+    public static BufferedImage flipHorizontally(BufferedImage image) {
         AffineTransform transform = AffineTransform.getScaleInstance(-1, 1);
         transform.translate(-image.getWidth(), 0);
         AffineTransformOp op = new AffineTransformOp(transform, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
