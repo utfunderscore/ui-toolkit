@@ -48,18 +48,25 @@ public class Testing {
 
     private static final HudOverlay hudOverlay1 = HudOverlay.top(
             Component.text("This is quite a long title"),
-            Writable.resource(Testing.class.getClassLoader(), "test-bar.png")
+            Writable.resource(Testing.class.getClassLoader(), "hud/top-background.png")
     );
 
     private static final HudOverlay hudOverlay2 = HudOverlay.top(
             Component.text("Short one"),
-            Writable.resource(Testing.class.getClassLoader(), "test-bar.png")
+            Writable.resource(Testing.class.getClassLoader(), "hud/end-bar.png"),
+            Writable.resource(Testing.class.getClassLoader(), "hud/middle-bar.png")
+    );
+
+    private static final HudOverlay hudOverlay3 = HudOverlay.top(
+            Component.text("This one is super long and has a auto generated background"),
+            Writable.resource(Testing.class.getClassLoader(), "hud/end-bar.png"),
+            Writable.resource(Testing.class.getClassLoader(), "hud/middle-bar.png")
     );
 
     public static void main(String[] args) throws IOException {
 
         ResourcePack resourcePack = new UIToolkit()
-                .add(customUIOverlay, hudOverlay1, hudOverlay2, TextureUtils.hideBossBar(BossBar.Color.WHITE))
+                .add(customUIOverlay, hudOverlay1, hudOverlay2, hudOverlay3, TextureUtils.hideBossBar(BossBar.Color.WHITE))
                 .build();
 
         BuiltResourcePack builtPack = MinecraftResourcePackWriter.minecraft().build(resourcePack);
@@ -118,6 +125,7 @@ public class Testing {
 
             player.showBossBar(BossBar.bossBar(hudOverlay1.getTitle(), 0.5f, BossBar.Color.WHITE, BossBar.Overlay.PROGRESS));
             player.showBossBar(BossBar.bossBar(hudOverlay2.getTitle(), 0.5f, BossBar.Color.WHITE, BossBar.Overlay.PROGRESS));
+            player.showBossBar(BossBar.bossBar(hudOverlay3.getTitle(), 0.5f, BossBar.Color.WHITE, BossBar.Overlay.PROGRESS));
 
             player.openInventory(inventory);
 
