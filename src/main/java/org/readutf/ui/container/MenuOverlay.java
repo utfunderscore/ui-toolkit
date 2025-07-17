@@ -56,10 +56,7 @@ public class MenuOverlay implements Module {
     }
 
     public static MenuOverlay chest(Writable writable) {
-        Texture texture = Texture.texture()
-                .key(Key.key("uitoolkit", Constants.fileNameCounter.getAndIncrement() + ".png"))
-                .data(writable)
-                .build();
+        Texture texture = Constants.createTexture(writable);
         return new MenuOverlay(texture, 39, -48);
     }
 
