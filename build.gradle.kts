@@ -7,6 +7,7 @@ version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
+    maven("https://repo.nexomc.com/releases/")
 }
 
 dependencies {
@@ -16,9 +17,11 @@ dependencies {
 
     implementation("net.kyori:adventure-api:4.22.0")
 
-    implementation("team.unnamed:creative-api:1.7.3")
-    implementation("team.unnamed:creative-serializer-minecraft:1.7.3")
-    implementation("team.unnamed:creative-server:1.7.3")
+    implementation("com.google.code.gson:gson:2.13.1")
+
+    implementation("team.unnamed:creative-api:1.9.1")
+    implementation("team.unnamed:creative-serializer-minecraft:1.9.1")
+    implementation("team.unnamed:creative-server:1.9.1")
 
 
     implementation("org.tinylog:tinylog-api:2.7.0")

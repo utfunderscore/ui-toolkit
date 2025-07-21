@@ -130,5 +130,16 @@ public final class TextureUtils {
                 resourcePack.texture(Texture.texture(Key.key(texturePath), blankTexture));
             }
         };
+
     }
+
+    public static Key removeExtension(@NotNull Key key) {
+        String keyString = key.asString();
+        int dotIndex = keyString.lastIndexOf('.');
+        if (dotIndex != -1) {
+            return Key.key(keyString.substring(0, dotIndex));
+        }
+        return key; // Return the original key if no extension is found
+    }
+
 }

@@ -17,7 +17,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import team.unnamed.creative.base.Writable;
 
-import java.io.IOException;
 import java.net.InetSocketAddress;
 
 public class TestingServer {
@@ -25,19 +24,16 @@ public class TestingServer {
     private static final Logger log = LoggerFactory.getLogger(TestingServer.class);
 
     private static final MenuOverlay customUIOverlay =
-            MenuOverlay.chest(Writable.resource(TestingServer.class.getClassLoader(), "custom-ui.png")
-            );
+            MenuOverlay.chest(Writable.resource(TestingServer.class.getClassLoader(), "custom-ui.png"));
 
     private static final HudAutoBackground hudOverlay2 = HudAutoBackground.autoBackground(
             Writable.resource(TestingServer.class.getClassLoader(), "hud/end-bar.png"),
-            Writable.resource(TestingServer.class.getClassLoader(), "hud/middle-bar.png")
-    );
+            Writable.resource(TestingServer.class.getClassLoader(), "hud/middle-bar.png"));
 
     private static final HotbarHud hotbarHud =
             HotbarHud.create(Writable.resource(TestingServer.class.getClassLoader(), "hud/bottom-guide.png"));
 
-
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
 
         ResourcePackRequest packRequest = TextureManager.startPackServer(
                 customUIOverlay,
@@ -45,11 +41,9 @@ public class TestingServer {
                 hotbarHud,
                 TextureUtils.hideBossBar(BossBar.Color.WHITE),
                 TextureUtils.hideHealth(TextureUtils.HealthBarType.NORMAL),
-                TextureUtils.hideFood(TextureUtils.FoodBarType.REGULAR)
-        );
+                TextureUtils.hideFood(TextureUtils.FoodBarType.REGULAR));
 
         startServer(packRequest);
-
     }
 
     private static void startServer(ResourcePackRequest packRequest) {
@@ -68,7 +62,6 @@ public class TestingServer {
         MinecraftServer.getGlobalEventHandler().addListener(PlayerSpawnEvent.class, e -> {
             Player player = e.getPlayer();
             player.teleport(new Pos(0, 41, 0));
-
         });
     }
 }

@@ -14,6 +14,8 @@ import java.util.List;
 
 public class UIToolkit {
 
+    public static final String namespace = "uitoolkit";
+
     private final @NotNull static MinecraftResourcePackReader reader =
             MinecraftResourcePackReader.builder().lenient(true).build();
 
@@ -28,7 +30,6 @@ public class UIToolkit {
      * Each module handles its own resources and applies them to the resource pack
      * when {@link #build()} is called.
      * @param module
-     * @return
      */
     public UIToolkit add(ResourcePackPart... module) {
         modules.addAll(Arrays.asList(module));
