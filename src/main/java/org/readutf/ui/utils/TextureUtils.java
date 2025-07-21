@@ -3,8 +3,8 @@ package org.readutf.ui.utils;
 import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.key.Key;
 import org.jetbrains.annotations.NotNull;
-import org.readutf.ui.Module;
 import team.unnamed.creative.base.Writable;
+import team.unnamed.creative.part.ResourcePackPart;
 import team.unnamed.creative.texture.Texture;
 
 public final class TextureUtils {
@@ -22,7 +22,7 @@ public final class TextureUtils {
      * @throws IllegalArgumentException if color is null
      */
     @NotNull
-    public static Module hideBossBar(@NotNull BossBar.Color color) {
+    public static ResourcePackPart hideBossBar(@NotNull BossBar.Color color) {
 
         return resourcePack -> {
             Writable blankTexture = Writable.inputStream(() -> ImageCreator.createBlankPngAsStream(182, 5));
@@ -63,7 +63,7 @@ public final class TextureUtils {
      * @throws IllegalArgumentException if type is null
      */
     @NotNull
-    public static Module hideHealth(@NotNull HealthBarType type) {
+    public static ResourcePackPart hideHealth(@NotNull HealthBarType type) {
 
         return resourcePack -> {
             Writable blankTexture = Writable.inputStream(() -> ImageCreator.createBlankPngAsStream(182, 5));
@@ -116,7 +116,7 @@ public final class TextureUtils {
      * @throws IllegalArgumentException if type is null
      */
     @NotNull
-    public static Module hideFood(@NotNull FoodBarType type) {
+    public static ResourcePackPart hideFood(@NotNull FoodBarType type) {
 
         return resourcePack -> {
             Writable blankTexture = Writable.inputStream(() -> ImageCreator.createBlankPngAsStream(182, 5));

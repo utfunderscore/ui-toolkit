@@ -2,6 +2,7 @@ package org.readutf.ui;
 
 import org.jetbrains.annotations.NotNull;
 import team.unnamed.creative.ResourcePack;
+import team.unnamed.creative.part.ResourcePackPart;
 import team.unnamed.creative.serialize.minecraft.MinecraftResourcePackReader;
 
 import java.io.FileNotFoundException;
@@ -16,7 +17,7 @@ public class UIToolkit {
     private final @NotNull static MinecraftResourcePackReader reader =
             MinecraftResourcePackReader.builder().lenient(true).build();
 
-    private final List<Module> modules;
+    private final List<ResourcePackPart> modules;
 
     public UIToolkit() {
         this.modules = new ArrayList<>();
@@ -29,7 +30,7 @@ public class UIToolkit {
      * @param module
      * @return
      */
-    public UIToolkit add(Module... module) {
+    public UIToolkit add(ResourcePackPart... module) {
         modules.addAll(Arrays.asList(module));
         return this;
     }
@@ -42,8 +43,8 @@ public class UIToolkit {
             negativeSpaceFontPack = reader.readFromInputStream(in);
         }
 
-        for (Module module : modules) {
-            module.apply(negativeSpaceFontPack);
+        for (ResourcePackPart module : modules) {
+            module.addTo(negativeSpaceFontPack);
         }
 
         return negativeSpaceFontPack;

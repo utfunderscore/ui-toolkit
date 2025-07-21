@@ -3,9 +3,9 @@ package org.readutf.ui.utils;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import team.unnamed.creative.ResourcePack;
 import team.unnamed.creative.font.Font;
 import team.unnamed.creative.font.FontProvider;
+import team.unnamed.creative.overlay.ResourceContainer;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,7 +15,7 @@ public class FontUtils {
 
     private static final Logger log = LoggerFactory.getLogger(FontUtils.class);
 
-    public static void appendFont(@NotNull ResourcePack resourcePack, @NotNull FontProvider... fontProvider) {
+    public static void appendFont(@NotNull ResourceContainer resourcePack, @NotNull FontProvider... fontProvider) {
         Font defaultFont = resourcePack.font(Font.MINECRAFT_DEFAULT);
         if(defaultFont == null) {
             log.warn("Could not find the default minecraft font? This should not happen");

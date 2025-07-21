@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import team.unnamed.creative.BuiltResourcePack;
 import team.unnamed.creative.ResourcePack;
+import team.unnamed.creative.part.ResourcePackPart;
 import team.unnamed.creative.serialize.minecraft.MinecraftResourcePackWriter;
 import team.unnamed.creative.server.ResourcePackServer;
 
@@ -20,7 +21,7 @@ public class TextureManager {
 
     private static final Logger log = LoggerFactory.getLogger(TextureManager.class);
 
-    public static ResourcePackRequest startPackServer(Module... module) {
+    public static ResourcePackRequest startPackServer(ResourcePackPart... module) {
 
         ResourcePack resourcePack;
         try {

@@ -1,11 +1,9 @@
 package org.readutf.ui.hud;
 
-import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import org.jetbrains.annotations.NotNull;
 import org.readutf.ui.Constants;
-import org.readutf.ui.Module;
 import org.readutf.ui.utils.FontUtils;
 import org.readutf.ui.utils.ImageCreator;
 import org.readutf.ui.utils.TextHelper;
@@ -13,6 +11,8 @@ import team.unnamed.creative.ResourcePack;
 import team.unnamed.creative.base.Writable;
 import team.unnamed.creative.font.BitMapFontProvider;
 import team.unnamed.creative.font.FontProvider;
+import team.unnamed.creative.overlay.ResourceContainer;
+import team.unnamed.creative.part.ResourcePackPart;
 import team.unnamed.creative.texture.Texture;
 
 import javax.imageio.ImageIO;
@@ -27,7 +27,7 @@ import java.io.IOException;
  * The background adapts to the width of the text component.
  * Intended for use in an action bar or bossbar.
  */
-public class HudAutoBackground implements Module {
+public class HudAutoBackground implements ResourcePackPart {
 
     private final Texture leftCharTexture;
     private final Texture centerCharTexture;
@@ -59,7 +59,7 @@ public class HudAutoBackground implements Module {
     }
 
     @Override
-    public void apply(ResourcePack resourcePack) {
+    public void addTo(ResourceContainer resourcePack) {
         BitMapFontProvider centerFont = FontProvider.bitMap()
                 .file(centerCharTexture.key())
                 .height(height)
