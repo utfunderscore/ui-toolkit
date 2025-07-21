@@ -1,10 +1,7 @@
 package org.readutf.ui;
 
 import org.jetbrains.annotations.NotNull;
-import org.readutf.ui.container.MenuOverlay;
 import team.unnamed.creative.ResourcePack;
-import team.unnamed.creative.font.Font;
-import team.unnamed.creative.font.FontProvider;
 import team.unnamed.creative.serialize.minecraft.MinecraftResourcePackReader;
 
 import java.io.FileNotFoundException;
@@ -25,6 +22,13 @@ public class UIToolkit {
         this.modules = new ArrayList<>();
     }
 
+    /**
+     * Adds a module to the toolkit.
+     * Each module handles its own resources and applies them to the resource pack
+     * when {@link #build()} is called.
+     * @param module
+     * @return
+     */
     public UIToolkit add(Module... module) {
         modules.addAll(Arrays.asList(module));
         return this;
@@ -33,7 +37,7 @@ public class UIToolkit {
     public ResourcePack build() throws IOException {
 
         ResourcePack negativeSpaceFontPack;
-        try (InputStream in = Testing.class.getClassLoader().getResourceAsStream("NegativeSpaceFont.zip")) {
+        try (InputStream in = UIToolkit.class.getClassLoader().getResourceAsStream("NegativeSpaceFont.zip")) {
             if (in == null) throw new FileNotFoundException();
             negativeSpaceFontPack = reader.readFromInputStream(in);
         }

@@ -16,6 +16,10 @@ import team.unnamed.creative.texture.Texture;
 import static net.kyori.adventure.text.Component.text;
 import static net.kyori.adventure.text.Component.translatable;
 
+/**
+ * Intended to be used with the corresponding container textures.
+ * To use this overlay, generate a component get getTitle() and apply it to the container title.
+ */
 public class MenuOverlay implements Module {
 
     private static final Logger log = LoggerFactory.getLogger(MenuOverlay.class);
@@ -32,18 +36,14 @@ public class MenuOverlay implements Module {
         this.imageChar = Constants.getNextCharacter();
     }
 
-    public FontProvider generate() {
-        return FontProvider.bitMap()
+    @Override
+    public void apply(ResourcePack resourcePack) {
+        FontUtils.appendFont(resourcePack, FontProvider.bitMap()
                 .file(texture.key())
                 .height(256)
                 .ascent(yOffset)
                 .characters(String.valueOf(imageChar))
-                .build();
-    }
-
-    @Override
-    public void apply(ResourcePack resourcePack) {
-        FontUtils.appendFont(resourcePack, generate());
+                .build());
         resourcePack.texture(texture);
     }
 

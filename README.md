@@ -8,7 +8,7 @@ seen on many of your favourite servers, including:
 and much more...
 
 
-### Container Overlay
+## Container Overlay
 Overlay templates can be found [here](src/main/resources/)
 ```java
 // Create a menu overlay using your texture
@@ -24,28 +24,43 @@ toolkit.add(overlay);
 Component title = overlay.getTitle();
 ```
 
-### Hide Bossbar
- Hiding the bossbar is needed when doing top aligned HUD elements. The following code
+## HUD Elements
+
+### Auto-sized hud element
+This element will automatically generate a background and size itself to the
+text content.
+
+```java
+// The end piece will be flipped horizonally to work on both ends
+// End piece (<) Middle piece (=)
+// Generated: [<=====>]
+Writable endPiece = ...;
+Wrtiable middlePiece = ...;
+HudAutoBackground autoBackground = HudAutoBackground.autoBackground(
+        endPiece,
+        middlePiece
+);
+
+// Reminder to hide the bossbar if you want to use this element
+player.showBossBar(BossBar.bossBar(player.setActionBar(), 0f, BossBar.Color.WHITE, BossBar.Overlay.PROGRESS));
+```
+
+### Hotbar hud element
+This element is intended to be used with the provided bottom-guide.png texture.
+It contains guides for the hotbar, hunger and health and xp bar.
+```java
+HotbarHud hotbarHud = HotbarHud.hotbarHud(
+    Writable.resource(Testing.class.getClassLoader(), "bottom-guide.png")
+);
+```
+
+### Utilities
+
+## Hide Bossbar
+Hiding the bossbar is needed when doing top aligned HUD elements. The following code
 will replace the bossbar sprite with an empty texture for a specific colour.
 
 ```java
 UIToolkit toolkit = ...;
 toolkit.add(TextureUtils.hideBossBar(BossBar.Color.WHITE));
 ```
-
-### HUD Elements
-
-Hud elements work by using custom characters in the bossbar, 
-and negative space fonts shifting the text into the correct positions
-
-#### Option 1 - Fixed background
-This option uses a single fixed background image for the HUD background.
-```java
-private static final HudOverlay hudOverlay1 = HudOverlay.top(
-        Component.text("This is quite a long title"),
-        Writable.resource(Testing.class.getClassLoader(), "hud/top-background.png")
-);
-```
-
-#### Option 2 - Dynamic background
-This option uses a ending image and a 

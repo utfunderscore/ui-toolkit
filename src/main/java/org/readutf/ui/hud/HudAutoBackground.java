@@ -20,6 +20,13 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
+/**
+ * Automatically generates a background for text components in the HUD.
+ * This module creates textures for left, center, and right characters
+ * and applies them to the resource pack.
+ * The background adapts to the width of the text component.
+ * Intended for use in an action bar or bossbar.
+ */
 public class HudAutoBackground implements Module {
 
     private final Texture leftCharTexture;
@@ -42,9 +49,12 @@ public class HudAutoBackground implements Module {
         this.leftCharSize = leftPiece.getWidth();
         this.centerCharSize = centerPiece.getWidth();
         this.rightCharSize = leftPiece.getWidth();
-        this.leftCharTexture = Constants.createTexture(Writable.copyInputStream(new ByteArrayInputStream(ImageCreator.toPngBuffer(leftPiece))));
-        this.centerCharTexture = Constants.createTexture(Writable.copyInputStream(new ByteArrayInputStream(ImageCreator.toPngBuffer(centerPiece))));
-        this.rightCharTexture = Constants.createTexture(Writable.copyInputStream(new ByteArrayInputStream(ImageCreator.toPngBuffer(ImageCreator.flipHorizontally(leftPiece)))));
+        this.leftCharTexture = Constants.createTexture(
+                Writable.copyInputStream(new ByteArrayInputStream(ImageCreator.toPngBuffer(leftPiece))));
+        this.centerCharTexture = Constants.createTexture(
+                Writable.copyInputStream(new ByteArrayInputStream(ImageCreator.toPngBuffer(centerPiece))));
+        this.rightCharTexture = Constants.createTexture(Writable.copyInputStream(
+                new ByteArrayInputStream(ImageCreator.toPngBuffer(ImageCreator.flipHorizontally(leftPiece)))));
         this.height = leftPiece.getHeight();
     }
 
@@ -129,7 +139,8 @@ public class HudAutoBackground implements Module {
 
     private record BackgroundInfo(Component background, int totalSize, int offsets) {}
 
-    public static @NotNull HudAutoBackground autoBackground(@NotNull Writable leftPiece, @NotNull Writable centerPiece) {
+    public static @NotNull HudAutoBackground autoBackground(
+            @NotNull Writable leftPiece, @NotNull Writable centerPiece) {
         try {
             BufferedImage left = ImageIO.read(new ByteArrayInputStream(leftPiece.toByteArray()));
             BufferedImage center = ImageIO.read(new ByteArrayInputStream(centerPiece.toByteArray()));
@@ -138,5 +149,4 @@ public class HudAutoBackground implements Module {
             throw new RuntimeException(e);
         }
     }
-
 }
