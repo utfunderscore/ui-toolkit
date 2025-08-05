@@ -6,7 +6,6 @@ import org.readutf.ui.Constants;
 import org.readutf.ui.utils.FontUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import team.unnamed.creative.ResourcePack;
 import team.unnamed.creative.base.Writable;
 import team.unnamed.creative.font.FontProvider;
 import team.unnamed.creative.overlay.ResourceContainer;
