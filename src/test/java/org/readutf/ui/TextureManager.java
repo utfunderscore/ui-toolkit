@@ -3,6 +3,7 @@ package org.readutf.ui;
 import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.resource.ResourcePackInfo;
 import net.kyori.adventure.resource.ResourcePackRequest;
+import org.jetbrains.annotations.NotNull;
 import org.readutf.ui.utils.TextureUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +22,7 @@ public class TextureManager {
 
     private static final Logger log = LoggerFactory.getLogger(TextureManager.class);
 
-    public static ResourcePackRequest startPackServer(ResourcePackPart... module) {
+    public static @NotNull ResourcePackRequest startPackServer(ResourcePackPart... module) {
 
         ResourcePack resourcePack;
         try {

@@ -2,6 +2,7 @@ package org.readutf.ui.hud;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
+import net.kyori.adventure.text.format.ShadowColor;
 import org.jetbrains.annotations.NotNull;
 import org.readutf.ui.Constants;
 import org.readutf.ui.utils.FontUtils;
@@ -39,8 +40,9 @@ public class HudAutoBackground implements ResourcePackPart {
     private final int centerCharSize;
     private final char rightChar;
     private final int rightCharSize;
-
     private final int height;
+
+    private boolean hideShadow = false;
 
     private HudAutoBackground(BufferedImage leftPiece, BufferedImage centerPiece) throws IOException {
         this.leftChar = Constants.getNextCharacter();
@@ -56,6 +58,11 @@ public class HudAutoBackground implements ResourcePackPart {
         this.rightCharTexture = Constants.createTexture(Writable.copyInputStream(
                 new ByteArrayInputStream(ImageCreator.toPngBuffer(ImageCreator.flipHorizontally(leftPiece)))));
         this.height = leftPiece.getHeight();
+    }
+
+    public HudAutoBackground hideShadow(boolean hideShadow) {
+        this.hideShadow = hideShadow;
+        return this;
     }
 
     @Override
@@ -96,11 +103,16 @@ public class HudAutoBackground implements ResourcePackPart {
         int offset = barLength / 2 + (componentWidth / 2);
         int leftOffset = barLength - offset;
 
-        System.out.println("offset: " + offset);
+        Component background = backgroundInfo.background();
+        if(hideShadow) {
+            background = background.shadowColor(ShadowColor.none());
+        }
+        background = background.append(backgroundInfo.background().append(Component.translatable("space.-" + offset)));
+
 
         return Component.text()
                 .append(Component.translatable("space." + (leftOffset - backgroundInfo.offsets)))
-                .append(backgroundInfo.background().append(Component.translatable("space.-" + offset)))
+                .append(background)
                 .append(component)
                 .build();
     }

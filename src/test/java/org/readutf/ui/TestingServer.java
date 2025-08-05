@@ -2,6 +2,7 @@ package org.readutf.ui;
 
 import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.resource.ResourcePackRequest;
+import net.kyori.adventure.text.Component;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.coordinate.Pos;
 import net.minestom.server.entity.Player;
@@ -23,8 +24,8 @@ public class TestingServer {
 
     private static final Logger log = LoggerFactory.getLogger(TestingServer.class);
 
-    private static final MenuOverlay customUIOverlay =
-            MenuOverlay.chest(Writable.resource(TestingServer.class.getClassLoader(), "custom-ui.png"));
+//    private static final MenuOverlay customUIOverlay =
+//            MenuOverlay.chest(Writable.resource(TestingServer.class.getClassLoader(), "custom-ui.png"));
 
     private static final HudAutoBackground hudOverlay2 = HudAutoBackground.autoBackground(
             Writable.resource(TestingServer.class.getClassLoader(), "hud/end-bar.png"),
@@ -36,7 +37,7 @@ public class TestingServer {
     public static void main(String[] args) {
 
         ResourcePackRequest packRequest = TextureManager.startPackServer(
-                customUIOverlay,
+//                customUIOverlay,
                 hudOverlay2,
                 hotbarHud,
                 TextureUtils.hideBossBar(BossBar.Color.WHITE),
@@ -62,6 +63,13 @@ public class TestingServer {
         MinecraftServer.getGlobalEventHandler().addListener(PlayerSpawnEvent.class, e -> {
             Player player = e.getPlayer();
             player.teleport(new Pos(0, 41, 0));
+
+            player.showBossBar(BossBar.bossBar(
+                    hudOverlay2.getTitle(Component.text("test123123")),
+                    0f,
+                    BossBar.Color.WHITE,
+                    BossBar.Overlay.PROGRESS
+            ));
         });
     }
 }
