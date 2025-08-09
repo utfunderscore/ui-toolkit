@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "org.readutf.ui"
-version = "1.0.3"
+version = "1.0.4"
 
 repositories {490
     mavenCentral()

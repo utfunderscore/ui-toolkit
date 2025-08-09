@@ -23,16 +23,18 @@ public class CustomCharacter implements ResourcePackPart {
         this.character = Constants.getNextCharacter();
     }
 
+    public char getCharacter() {
+        return character;
+    }
+
     @Override
     public void addTo(@NotNull ResourceContainer resourceContainer) {
-        BitMapFontProvider centerFont = FontProvider.bitMap()
+        FontUtils.appendFont(resourceContainer, FontProvider.bitMap()
                 .file(texture.key())
                 .height(height)
                 .ascent(ascent)
                 .characters(String.valueOf(character))
-                .build();
-
-        FontUtils.appendFont(resourceContainer, centerFont);
-        resourceContainer.texture(texture.key());
+                .build());
+        resourceContainer.texture(texture);
     }
 }
