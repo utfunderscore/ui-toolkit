@@ -107,7 +107,7 @@ public class HudAutoBackground implements ResourcePackPart {
         if(hideShadow) {
             background = background.shadowColor(ShadowColor.none());
         }
-        background = background.append(backgroundInfo.background().append(Component.translatable("space.-" + offset)));
+        background = background.append(Component.translatable("space.-" + offset));
 
 
         return Component.text()

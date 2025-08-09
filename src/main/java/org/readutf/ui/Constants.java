@@ -2,7 +2,6 @@ package org.readutf.ui;
 
 import net.kyori.adventure.key.Key;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import team.unnamed.creative.base.Writable;
 import team.unnamed.creative.metadata.Metadata;
 import team.unnamed.creative.texture.Texture;
